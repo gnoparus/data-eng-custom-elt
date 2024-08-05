@@ -39,7 +39,7 @@ destination_config = {
     "dbname": "destination_db",
     "user": "postgres",
     "password": "secret",
-    "host": "source_postgres",
+    "host": "destination_postgres",
 }
 
 dump_command = [
