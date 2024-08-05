@@ -56,7 +56,7 @@ dump_command = [
 ]
 
 subprocess_env = dict(PGPASSWORD=source_config["password"])
-subproces.run(dump_command, env=subprocess_env, check=True)
+subprocess.run(dump_command, env=subprocess_env, check=True)
 
 load_command = [
     "psql",
