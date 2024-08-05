@@ -51,7 +51,7 @@ dump_command = [
     "-d",
     source_config["dbname"],
     "-f",
-    "source_dump.sql",
+    "data_dump.sql",
     "-w",
 ]
 
@@ -66,6 +66,7 @@ load_command = [
     destination_config["user"],
     "-d",
     destination_config["dbname"],
+    "a",
     "-f",
     "data_dump.sql",
 ]
