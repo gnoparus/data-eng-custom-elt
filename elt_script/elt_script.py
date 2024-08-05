@@ -16,8 +16,41 @@ def wait_for_postgres(host, max_retries=5, delay_seconds=5):
             print(f"Error connecting to Postgres: {e}")
             retries = retries + 1
             print(
-                f"Retrying connection in {delay_seconds} seconds... (Attempt {retries}/{max_retries})"
+                f"Retrying in {delay_seconds} seconds... (Attempt {retries}/{max_retries})"
             )
             time.sleep(delay_seconds)
     print("Max retries reached. Exiting...")
     return False
+
+
+if not wait_for_postgres(host="source_postgres"):
+    exit(1)
+
+print("Starting ELT process...")
+
+source_config = {
+    "dbname": "source_db",
+    "user": "postgres",
+    "password": "secret",
+    "host": "source_postgres",
+}
+
+destination_config = {
+    "dbname": "destination_db",
+    "user": "postgres",
+    "password": "secret",
+    "host": "source_postgres",
+}
+
+dump_command = [
+    "pg_dump",
+    "-h",
+    source_config["host"],
+    "-U",
+    source_config["user"],
+    "-d",
+    source_config["dbname"],
+    "-f",
+    "source_dump.sql",
+    "-w",
+]
